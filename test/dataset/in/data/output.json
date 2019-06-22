@@ -1,0 +1,141 @@
+{
+  "createPath": [{
+    "label": "Devrait retourner un chemin correctement construit (non null)",
+    "arguments": {
+      "outputDirectory": "/my/path/",
+      "id": "test",
+      "label": "tdm-utils",
+      "extension": ".out"
+    },
+    "result": {
+      "equal": "{\"directory\":\"/my/path/tdm-utils\",\"filename\":\"test.tdm-utils.out\"}"
+    }
+  }, {
+    "label": "Devrait retourner null",
+    "arguments": {
+      "outputDirectory": "/my/path/",
+      "label": "tdm-utils",
+      "extension": ".out"
+    },
+    "result": {
+      "equal": "null"
+    }
+  }],
+  "write": [{
+    "label": "Write of file succed (template pathFile given)",
+    "arguments": {
+      "options": {
+        "template": "./test/dataset/in/resources/test.tpl",
+        "data": {
+          "value": "test"
+        },
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "test"
+    }
+  }, {
+    "label": "Write of file succed (template data given)",
+    "arguments": {
+      "options": {
+        "template": "{{value}}",
+        "data": {
+          "value": "test"
+        },
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "test"
+    }
+  }, {
+    "label": "Write of file failed (empty template file given)",
+    "arguments": {
+      "options": {
+        "template": "",
+        "data": {
+          "value": "test"
+        },
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "Error: Unable to write data, missing options values"
+    }
+  }, {
+    "label": "Write of file failed (empty template data given)",
+    "arguments": {
+      "options": {
+        "template": "",
+        "data": {
+          "value": "test"
+        },
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "Error: Unable to write data, missing options values"
+    }
+  }, {
+    "label": "Write of file failed (error of template path)",
+    "arguments": {
+      "options": {
+        "template": "./test/dataset/in/resources/nofile/test.tpl",
+        "data": {
+          "value": "test"
+        },
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "Error: ENOENT: no such file or directory, open './test/dataset/in/resources/nofile/test.tpl'"
+    }
+  }, {
+    "label": "Write of file succed (with an error of template data)",
+    "arguments": {
+      "options": {
+        "template": "{value",
+        "data": {
+          "value": "test"
+        },
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "{value"
+    }
+  }, {
+    "label": "Write of file succed (no template)",
+    "arguments": {
+      "options": {
+        "data": "test",
+        "output": {
+          "directory": "./test/dataset/out/",
+          "filename": "test.tdm-utils.out"
+        }
+      }
+    },
+    "result": {
+      "equal": "test"
+    }
+  }]
+}

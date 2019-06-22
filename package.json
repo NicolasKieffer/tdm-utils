@@ -1,0 +1,31 @@
+{
+  "name": "tdm-utils",
+  "version": "1.0.0",
+  "description": "Regroup functions for TDM apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -t 120000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NicolasKieffer/tdm-utils.git"
+  },
+  "author": "NicolasKieffer",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.1",
+    "auto-tu": "^1.1.1",
+    "cheerio": "^0.22.0",
+    "dateformat": "^1.0.12",
+    "express": "^4.16.3",
+    "is-valid-path": "^0.1.1",
+    "is-xml": "^0.1.0",
+    "mime": "^2.4.4",
+    "mkdirp": "^0.5.1",
+    "mmmagic": "^0.5.3",
+    "mocha": "^5.2.0",
+    "mustache": "^2.2.1",
+    "request": "^2.74.0",
+    "supertest": "^3.3.0"
+  }
+}

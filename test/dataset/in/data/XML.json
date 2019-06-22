@@ -1,0 +1,21 @@
+{
+  "load": [{
+    "label": "Devrait parser un fichier xml",
+    "filePath": "./dataset/in/resources/test.xml",
+    "result": {
+      "equal": "test"
+    }
+  }, {
+    "label": "Ne devrait pas parser de xml (fichier vide)",
+    "filePath": "./dataset/in/resources/empty.xml",
+    "result": {
+      "equal": "Error: File data is not a XML document"
+    }
+  }, {
+    "label": "Ne devrait pas parser de xml (fichier vide)",
+    "filePath": "./dataset/in/resources/nofile/test.xml",
+    "result": {
+      "equal": "Error: ENOENT: no such file or directory, open '/home/nicolas/Projects/rd-modules/tdm-utils/test/dataset/in/resources/nofile/test.xml'"
+    }
+  }]
+}

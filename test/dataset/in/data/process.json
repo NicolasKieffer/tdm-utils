@@ -1,0 +1,45 @@
+{
+  "transformXML": [{
+    "label": "Devrait correctement lancer la transformation du fichier XML",
+    "arguments": {
+      "options": {
+        "output": "./test/dataset/out/keyterm.transformed.xml",
+        "documentId": "0000000000000000000000000000000000000000",
+        "runId": "1",
+        "xsltFile": "./test/dataset/in/resources/transform.xslt",
+        "xmlFile": "./test/dataset/in/resources/keyterm.xml"
+      }
+    },
+    "result": {
+      "equal": 0
+    }
+  }, {
+    "label": "Ne devrait pas trouver le fichier XML",
+    "arguments": {
+      "options": {
+        "output": "./test/dataset/out/keyterm.transformed.xml",
+        "documentId": "0000000000000000000000000000000000000000",
+        "runId": "1",
+        "xsltFile": "./test/dataset/in/resources/transform.xslt",
+        "xmlFile": "./test/dataset/in/resources/ERROR_ENOENT.xml"
+      }
+    },
+    "result": {
+      "equal": 6
+    }
+  }, {
+    "label": "Ne devrait pas trouver le fichier XSLT",
+    "arguments": {
+      "options": {
+        "output": "./test/dataset/out/keyterm.transformed.xml",
+        "documentId": "0000000000000000000000000000000000000000",
+        "runId": "1",
+        "xsltFile": "./test/dataset/in/resources/ERROR_ENOENT.xslt",
+        "xmlFile": "./test/dataset/in/resources/keyterm.xml"
+      }
+    },
+    "result": {
+      "equal": 4
+    }
+  }]
+}

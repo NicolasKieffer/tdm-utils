@@ -1,0 +1,90 @@
+{
+  "checkMime": [{
+    "label": "Test of MimeType should pass (application/json)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/test.json",
+      "expectedMime": "application/json"
+    },
+    "result": {
+      "equal": "application/json"
+    }
+  }, {
+    "label": "Test of MimeType should pass (application/xml)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/test.xml",
+      "expectedMime": "application/xml"
+    },
+    "result": {
+      "equal": "application/xml"
+    }
+  }, {
+    "label": "Test of MimeType should not pass (mimetype not expected)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/test.json",
+      "expectedMime": "application/xml"
+    },
+    "result": {
+      "equal": "Error: Mimetype do not match"
+    }
+  }, {
+    "label": "Test of MimeType should not pass (undefined mimetype)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/test.json"
+    },
+    "result": {
+      "equal": "Error: Mimetype is not definded"
+    }
+  }, {
+    "label": "Test of MimeType should pass (undefined file extension)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/test.in",
+      "expectedMime": "text/plain"
+    },
+    "result": {
+      "equal": "text/plain"
+    }
+  }],
+  "read": [{
+    "label": "Read succed (mimetype not checked)",
+    "arguments": {
+      "options": {
+        "filePath": "./test/dataset/in/resources/test.json"
+      }
+    },
+    "result": {
+      "equal": "{\"test\":\"test\"}"
+    }
+  }, {
+    "label": "Read succed (mimetype checked)",
+    "arguments": {
+      "options": {
+        "filePath": "./test/dataset/in/resources/test.json",
+        "mimeType": "application/json"
+      }
+    },
+    "result": {
+      "equal": "{\"test\":\"test\"}"
+    }
+  }, {
+    "label": "Read fail (mimetype check failure)",
+    "arguments": {
+      "options": {
+        "filePath": "./test/dataset/in/resources/test.json",
+        "mimeType": "application/xml"
+      }
+    },
+    "result": {
+      "equal": "Error: Mimetype do not match"
+    }
+  }, {
+    "label": "Read fail (file not found)",
+    "arguments": {
+      "options": {
+        "filePath": "./test/dataset/in/resources/nofile/test.json"
+      }
+    },
+    "result": {
+      "equal": "Error: ENOENT: no such file or directory, open './test/dataset/in/resources/nofile/test.json'"
+    }
+  }]
+}
