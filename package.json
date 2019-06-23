@@ -1,6 +1,6 @@
 {
   "name": "tdm-utils",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Regroup functions for TDM apps",
   "main": "index.js",
   "scripts": {
@@ -13,19 +13,19 @@
   "author": "NicolasKieffer",
   "license": "OpenBSD",
   "dependencies": {
-    "async": "^2.6.1",
-    "auto-tu": "^1.1.1",
-    "cheerio": "^0.22.0",
-    "dateformat": "^1.0.12",
-    "express": "^4.16.3",
+    "async": "^3.1.0",
+    "auto-tu": "^2.0.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dateformat": "^3.0.3",
+    "express": "^4.17.1",
     "is-valid-path": "^0.1.1",
     "is-xml": "^0.1.0",
     "mime": "^2.4.4",
     "mkdirp": "^0.5.1",
     "mmmagic": "^0.5.3",
-    "mocha": "^5.2.0",
-    "mustache": "^2.2.1",
-    "request": "^2.74.0",
-    "supertest": "^3.3.0"
+    "mocha": "^6.1.4",
+    "mustache": "^3.0.1",
+    "request": "^2.88.0",
+    "supertest": "^4.0.2"
   }
 }
