@@ -14,8 +14,7 @@ let server,
 
 // Test data
 const dataset = {
-  'input': require('./dataset/in/data/input.json'),
-  'output': require('./dataset/in/data/output.json'),
+  'io': require('./dataset/in/data/io.json'),
   'JSON': require('./dataset/in/data/JSON.json'),
   'XML': require('./dataset/in/data/XML.json'),
   'URL': require('./dataset/in/data/URL.json'),
@@ -25,13 +24,11 @@ const dataset = {
 
 // Map of functions used in test
 const wrapper = {
-  'input': {
-    'checkMime': testOf_inputCheckMime,
-    'read': testOf_inputRead
-  },
-  'output': {
-    'createPath': testOf_outputCreatePath,
-    'write': testOf_outputWrite
+  'io': {
+    'checkMime': testOf_ioCheckMime,
+    'read': testOf_ioRead,
+    'createPath': testOf_ioCreatePath,
+    'write': testOf_ioWrite
   },
   'JSON': {
     'load': testOf_jsonLoad
@@ -77,11 +74,9 @@ TU.which({
 /**
  * Test de chaques fonctions de :
  *
- * - myObject.input
+ * - myObject.io
  *   - checkMime()
  *   - read()
- *
- * - myObject.output.
  *   - createPath()
  *   - write()
  *
@@ -114,9 +109,9 @@ TU.start({
 
 /**
  * Fonction de test à appliquée pour :
- * - myObject.input.checkMime()
+ * - myObject.io.checkMime()
  */
-function testOf_inputCheckMime(fn, item, cb) {
+function testOf_ioCheckMime(fn, item, cb) {
   return fn(item.arguments.filePath, item.arguments.expectedMime, function(err, res) {
     if (err) return cb(err.toString());
     return cb(res);
@@ -125,9 +120,9 @@ function testOf_inputCheckMime(fn, item, cb) {
 
 /**
  * Fonction de test à appliquée pour :
- * - myObject.input.read()
+ * - myObject.io.read()
  */
-function testOf_inputRead(fn, item, cb) {
+function testOf_ioRead(fn, item, cb) {
   return fn(item.arguments.options, function(err, res) {
     if (err) return cb(err.toString());
     return cb(res);
@@ -136,17 +131,17 @@ function testOf_inputRead(fn, item, cb) {
 
 /**
  * Fonction de test à appliquée pour :
- * - myObject.output.createPath()
+ * - myObject.io.createPath()
  */
-function testOf_outputCreatePath(fn, item, cb) {
+function testOf_ioCreatePath(fn, item, cb) {
   return cb(JSON.stringify(fn(item.arguments)));
 }
 
 /**
  * Fonction de test à appliquée pour :
- * - myObject.output.write()
+ * - myObject.io.write()
  */
-function testOf_outputWrite(fn, item, cb) {
+function testOf_ioWrite(fn, item, cb) {
   return fn(item.arguments.options, function(err, res) {
     if (err) return cb(err.toString());
     return cb(res);

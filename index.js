@@ -41,7 +41,7 @@ const ERROR = {
 const object = {};
 
 // Regroup input's functions
-object.input = {};
+object.io = {};
 
 /**
  * Check MimeType of given file
@@ -52,7 +52,7 @@ object.input = {};
  *  - {String} res Returned MimeType
  * @return {undefined} Return undefined
  */
-object.input.checkMime = function(filePath, expectedMime = null, cb) {
+object.io.checkMime = function(filePath, expectedMime = null, cb) {
   let testedMime = mime.getType(filePath);
   if (!expectedMime) return cb(ERROR.INPUT.UNDEFINED_EXPECTED_MIMETYPE);
   if (!testedMime)
@@ -70,20 +70,20 @@ object.input.checkMime = function(filePath, expectedMime = null, cb) {
  * @param {Object} options Object containing data required to process  :
  *  - {String} filePath Path of given File
  *  - {String} encoding Encoding of given File
- *  - {Object} mimeType Expected Mimetype (if this value is defined, object.input.checkMime function will be called)
+ *  - {Object} mimeType Expected Mimetype (if this value is defined, object.io.checkMime function will be called)
  * @param {function} cb Function called when procces end :
  *  - {Error} err Process erros
  *  - {String} res Readed data
  * @return {undefined} Return undefined
  */
-object.input.read = function(options = {}, cb) {
+object.io.read = function(options = {}, cb) {
   if (options.mimeType) {
-    return object.input.checkMime(options.filePath, options.mimeType, function(err, res) {
+    return object.io.checkMime(options.filePath, options.mimeType, function(err, res) {
       if (err) return cb(err);
-      return object.input._read(options.filePath, options.encoding, cb);
+      return object.io._read(options.filePath, options.encoding, cb);
     });
   }
-  return object.input._read(options.filePath, options.encoding, cb);
+  return object.io._read(options.filePath, options.encoding, cb);
 };
 
 /**
@@ -95,7 +95,7 @@ object.input.read = function(options = {}, cb) {
  *  - {String} res Readed data
  * @return {undefined} Return undefined
  */
-object.input._read = function(filePath, encoding = 'utf8', cb) {
+object.io._read = function(filePath, encoding = 'utf8', cb) {
   // Read file
   return fs.readFile(filePath, encoding, function(err, res) {
     if (err) return cb(err);
@@ -103,11 +103,8 @@ object.input._read = function(filePath, encoding = 'utf8', cb) {
   });
 };
 
-// Regroup output's functions
-object.output = {};
-
 /**
- * Return data for object.output.write function
+ * Return data for object.io.write function
  *  - directory => [outputDirectory]/[id]/
  *  - filename => [id].([label].)[extension]
  * @param {Object} options Object containing data required to process :
@@ -117,7 +114,7 @@ object.output = {};
  *  - {String} extension File extension (for example : .tei.xml)
  * @return {Object} File Infos, like : { filemane, directory }
  */
-object.output.createPath = function(options = {}) {
+object.io.createPath = function(options = {}) {
   let result = null;
   if (options && options.id) {
     result = {
@@ -133,33 +130,33 @@ object.output.createPath = function(options = {}) {
  * @param {Object} options Object containing data required to process  :
  *  - {String} template Template content or path of template file (if template is path of file, it will be automatically loaded)
  *  - {Object|String} data Data that will fill template, or simply data which will be written
- *  - {Object} output Output data (use : object.output.createPath function)
+ *  - {Object} output Output data (use : object.io.createPath function)
  * @param {function} cb Function called when procces end :
  *  - {Error} err Process erros
  *  - {String} res Writed data
  * @return {undefined} Return undefined
  */
-object.output.write = function(options = {}, cb) {
+object.io.write = function(options = {}, cb) {
   // Will create subdirectories if needed
   return mkdirp(options.output.directory, function(err, made) {
     if (err) return cb(err);
     let filePath = path.join(options.output.directory, options.output.filename);
     if (typeof options.template === 'undefined' && typeof options.data === 'string') {
       // case data is a string (no template need to be loaded)
-      return object.output._write(filePath, options.encoding, options.data, cb);
+      return object.io._write(filePath, options.encoding, options.data, cb);
     }
     if (options.template) {
       if (isValidPath(options.template)) {
         // case template must be loaded
-        return object.input._read(options.template, options.encoding, function(err, res) {
+        return object.io._read(options.template, options.encoding, function(err, res) {
           if (err) return cb(err);
           let fragment = mustache.render(res, options.data);
-          return object.output._write(filePath, options.encoding, fragment, cb);
+          return object.io._write(filePath, options.encoding, fragment, cb);
         });
       }
       // case template is already loaded
       let fragment = mustache.render(options.template, options.data);
-      return object.output._write(filePath, options.encoding, fragment, cb);
+      return object.io._write(filePath, options.encoding, fragment, cb);
     }
     return cb(ERROR.OUTPUT.WRITE_FAIL);
   });
@@ -174,7 +171,7 @@ object.output.write = function(options = {}, cb) {
  *  - {String} res Writed data
  * @return {undefined} Return undefined
  */
-object.output._write = function(filePath, encoding = 'utf8', data, cb) {
+object.io._write = function(filePath, encoding = 'utf8', data, cb) {
   // Write file
   return fs.writeFile(filePath, data, encoding, function(err) {
     if (err) data = null;
@@ -194,7 +191,7 @@ object.JSON = {};
  * @return {undefined} Return undefined
  */
 object.JSON.load = function(filePath, cb) {
-  return object.input.read({ 'filePath': filePath, 'mimeType': 'application/json' }, function(err, data) {
+  return object.io.read({ 'filePath': filePath, 'mimeType': 'application/json' }, function(err, data) {
     if (err) return cb(err);
     try {
       let result = JSON.parse(data);
@@ -217,7 +214,7 @@ object.XML = {};
  * @return {undefined} Return undefined
  */
 object.XML.load = function(filePath, cb) {
-  return object.input.read({ 'filePath': filePath, 'mimeType': 'application/xml' }, function(err, res) {
+  return object.io.read({ 'filePath': filePath, 'mimeType': 'application/xml' }, function(err, res) {
     if (err) return cb(err);
     if (!isXML(res)) return cb(ERROR.XML.IS_NOT_XML);
     const result = cheerio.load(res, {
@@ -379,7 +376,7 @@ object.process = {};
  * @param {Object} options Object containing information needed to create command line :
  *  - {String} output XSLT file
  *  - {String} documentId Data inserted in XML File
- *  - {String} runId Output data (see object.output.createPath function)
+ *  - {String} runId Output data (see object.io.createPath function)
  *  - {String} xsltFile Path of XSLT File
  *  - {String} xmlFile Path of XML File
  * @param {function} cb Function called when procces end :
