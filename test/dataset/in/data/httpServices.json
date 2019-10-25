@@ -1,6 +1,6 @@
 {
   "setFilesInFormdata": [{
-    "label": "Devrait correctement remplir le formData (1 fichier à upload)",
+    "label": "Should fill formData (1 file to upload)",
     "arguments": {
       "files": {
         "file": "./test/dataset/in/resources/test.json"
@@ -11,7 +11,7 @@
       "length": 1
     }
   }, {
-    "label": "Devrait correctement remplir le formData (2 fichiers à upload)",
+    "label": "Should fill formData (2 file to upload)",
     "arguments": {
       "files": {
         "file1": "./test/dataset/in/resources/test.json",
@@ -23,7 +23,7 @@
       "length": 2
     }
   }, {
-    "label": "Ne devrait pas trouver le fichier à upload",
+    "label": "Should not find file to uplaod",
     "arguments": {
       "files": {
         "file": "./test/dataset/in/resources/nofile/test.json"
@@ -34,7 +34,7 @@
       "include": "ENOENT"
     }
   }, {
-    "label": "Ne devrait pas trouver un des fichiers à upload",
+    "label": "Should not find file to uplaod",
     "arguments": {
       "files": {
         "file1": "./test/dataset/in/resources/test.json",
@@ -47,7 +47,7 @@
     }
   }],
   "call": [{
-    "label": "Devrait réussir à appeler le service (GET httpServices/200)",
+    "label": "Should succed to request service without retry (GET httpServices/200)",
     "arguments": {
       "options": {
         "method": "GET",
@@ -59,7 +59,7 @@
       "equal": 200
     }
   }, {
-    "label": "Devrait réussir à appeler le service après un retry (GET httpServices/retry)",
+    "label": "Should succed to request service after retry (GET httpServices/retry)",
     "arguments": {
       "options": {
         "method": "GET",
@@ -74,7 +74,7 @@
       "equal": 200
     }
   }, {
-    "label": "Ne devrait pas réussir à appeler le service même après plusieurs retry (GET httpServices/403)",
+    "label": "Should not succed to request service after retry (GET httpServices/403)",
     "arguments": {
       "options": {
         "method": "GET",
@@ -89,7 +89,7 @@
       "equal": 403
     }
   }, {
-    "label": "Ne devrait pas réussir à appeler le service (bad adress) sans retry",
+    "label": "Should not succed to request service without retry (bad adress)",
     "arguments": {
       "options": {
         "method": "GET",
@@ -101,7 +101,7 @@
       "include": "getaddrinfo ENOTFOUND"
     }
   }, {
-    "label": "Ne devrait pas réussir à appeler le service (bad adress) avec retry (retry normalement ignoré)",
+    "label": "Should not succed to request service and retry should be ignored (bad adress)",
     "arguments": {
       "options": {
         "method": "GET",

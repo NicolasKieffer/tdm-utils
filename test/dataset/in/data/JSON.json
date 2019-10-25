@@ -1,21 +1,27 @@
 {
   "load": [{
-    "label": "Devrait parser un fichier json",
-    "filePath": "./dataset/in/resources/test.json",
+    "label": "Should parse JSON file",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/test.json"
+    },
     "result": {
       "equal": "{\"test\":\"test\"}"
     }
   }, {
-    "label": "Ne devrait pas parser de json (fichier vide)",
-    "filePath": "./dataset/in/resources/empty.json",
+    "label": "Should not parse JSON file (empty file)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/empty.json"
+    },
     "result": {
       "equal": "SyntaxError: Unexpected end of JSON input"
     }
   }, {
-    "label": "Ne devrait pas parser de json (fichier vide)",
-    "filePath": "./dataset/in/resources/nofile/.json",
+    "label": "Should not parse JSON file (file does not exist)",
+    "arguments": {
+      "filePath": "./test/dataset/in/resources/nofile/.json"
+    },
     "result": {
-      "equal": "Error: cannot stat `/home/nicolas/Projects/rd-modules/tdm-utils/test/dataset/in/resources/nofile/.json' (No such file or directory)"
+      "include": "Error: cannot stat"
     }
   }]
 }

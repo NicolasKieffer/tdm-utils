@@ -1,3 +1,6 @@
+/**
+ * @prettier
+ */
 const express = require('express');
 let retry = true,
   app = express();

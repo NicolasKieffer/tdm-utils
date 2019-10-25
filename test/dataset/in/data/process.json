@@ -1,6 +1,6 @@
 {
   "transformXML": [{
-    "label": "Devrait correctement lancer la transformation du fichier XML",
+    "label": "Should process XML file",
     "arguments": {
       "options": {
         "output": "./test/dataset/out/keyterm.transformed.xml",
@@ -14,7 +14,7 @@
       "equal": 0
     }
   }, {
-    "label": "Ne devrait pas trouver le fichier XML",
+    "label": "Should not find XML file",
     "arguments": {
       "options": {
         "output": "./test/dataset/out/keyterm.transformed.xml",
@@ -28,7 +28,7 @@
       "equal": 6
     }
   }, {
-    "label": "Ne devrait pas trouver le fichier XSLT",
+    "label": "Should not find XSLT file",
     "arguments": {
       "options": {
         "output": "./test/dataset/out/keyterm.transformed.xml",

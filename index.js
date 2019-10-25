@@ -1,6 +1,6 @@
-/* global module */
-/* jslint node: true */
-/* jslint indent: 2 */
+/**
+ * @prettier
+ */
 'use strict';
 
 /* Module Require */
@@ -217,11 +217,20 @@ object.XML.load = function(filePath, cb) {
   return object.io.read({ 'filePath': filePath, 'mimeType': 'application/xml' }, function(err, res) {
     if (err) return cb(err);
     if (!isXML(res)) return cb(ERROR.XML.IS_NOT_XML);
-    const result = cheerio.load(res, {
-      'xmlMode': true
-    });
+    const result = object.XML.raw(res);
     if (Object.keys(result).length === 0) return cb(ERROR.XML.PARSE_FAIL);
     return cb(null, result);
+  });
+};
+
+/**
+ * Parse content of given XML file
+ * @param {String} xmlString String representation of an XML document
+ * @return {undefined} Return undefined
+ */
+object.XML.raw = function(xmlString) {
+  return cheerio.load(xmlString, {
+    'xmlMode': true
   });
 };
 
